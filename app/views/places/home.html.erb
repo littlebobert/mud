@@ -1,0 +1,4 @@
+<div><%= @place.description %></div>
+<% @place.outgoing_links.each do |outgoing_link| %>
+  <%= link_to outgoing_link.description, place_path(outgoing_link.to) %>
+<% end %>

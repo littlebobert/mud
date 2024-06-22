@@ -10,9 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_22_180455) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_22_203216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "place_id", null: false
+    t.index ["place_id"], name: "index_items_on_place_id"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.bigint "from_id", null: false
+    t.bigint "to_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_id"], name: "index_links_on_from_id"
+    t.index ["to_id"], name: "index_links_on_to_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "starting_zone", default: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_180455) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "items", "places"
+  add_foreign_key "links", "places", column: "from_id"
+  add_foreign_key "links", "places", column: "to_id"
 end
