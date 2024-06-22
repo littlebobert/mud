@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_22_203216) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_22_205224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +19,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_203216) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "place_id", null: false
+    t.bigint "place_id"
+    t.bigint "user_id"
     t.index ["place_id"], name: "index_items_on_place_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "links", force: :cascade do |t|
@@ -53,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_203216) do
   end
 
   add_foreign_key "items", "places"
+  add_foreign_key "items", "users"
   add_foreign_key "links", "places", column: "from_id"
   add_foreign_key "links", "places", column: "to_id"
 end

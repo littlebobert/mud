@@ -1,0 +1,7 @@
+<div><%= @item.name %></div>
+<div><%= @item.description %></div>
+<%= simple_form_for @item, method: :patch do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :place_id, value: '' %>
+  <%= f.submit value: "Pick up" %>
+<% end %>

@@ -2,7 +2,7 @@
 <% if @place.items.count != 0 %>
   <div>you see:
 	  <% @place.items.each do |item| %>
-	    <span class="item"><%= item.name %></span>
+	    <span class="item"><%= link_to item.name, item_path(item) %></span>
 	  <% end %>
   </div>
 <% end %>
