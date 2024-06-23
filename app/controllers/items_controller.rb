@@ -13,7 +13,8 @@ class ItemsController < ApplicationController
     
     @item.update(item_params)
     if @item.save
-      redirect_to place_path(place), notice: "You picked up #{@item.name}"
+      notice = @item.user == nil ? "You dropped #{@item.name}" : "You picked up #{@item.name}"
+      redirect_to place_path(place), notice: notice
     else
       render :show, status: :unprocessable_entity
     end

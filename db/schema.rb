@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_22_233234) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_23_130142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,7 +70,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_233234) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.bigint "place_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["place_id"], name: "index_users_on_place_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -81,4 +84,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_22_233234) do
   add_foreign_key "links", "places", column: "to_id"
   add_foreign_key "messages", "characters"
   add_foreign_key "messages", "users"
+  add_foreign_key "users", "places"
 end

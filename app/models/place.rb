@@ -5,4 +5,5 @@ class Place < ApplicationRecord
   has_many :entrances, through: :incoming_links, source: :from
   has_many :items
   has_many :characters
+  has_many :users
 end

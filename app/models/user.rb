@@ -7,4 +7,7 @@ class User < ApplicationRecord
          
   has_many :messages
   has_many :items
+  belongs_to :place
+  
+  validates :name, presence: true, uniqueness: true
 end

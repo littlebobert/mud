@@ -24,3 +24,10 @@
 	  <% end %>
   </div>
 <% end %>
+<% if @other_users.count != 0 %>
+  <div>also here with you (but possibly resting):
+	  <% @other_users.each do |user| %>
+		<span class="user"><%= user.name %></span>
+	  <% end %>
+  </div>
+<% end %>
