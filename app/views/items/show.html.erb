@@ -3,6 +3,6 @@
 <%= simple_form_for [@place, @item], method: :patch do |f| %>
   <%= f.hidden_field :user_id, value: @item.user == nil ? current_user.id : nil %>
   <%= f.hidden_field :place_id, value: @item.user == nil ? '' : @place.id %>
-  <%= f.submit value: @item.user == nil ? "Pick it up" : "Put it down" %>
+  <%= f.submit value: @item.user == nil ? "pick it up" : "put it down" %>
 <% end %>
-<%= link_to "back to #{@place.description}", place_path(@place) %>
+<%= link_to "back to: #{@place.description}", place_path(@place) %>

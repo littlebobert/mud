@@ -1,4 +1,4 @@
-<div>you’re chatting with <%= @character.name %></div>
+<div>you’re privately chatting with <%= @character.name %></div>
 <% @messages.each do |message| %>
   <div><%= message.from_user ? "you" : @character.name %>: <%= message.content %></div>
 <% end %>
