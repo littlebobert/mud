@@ -15,7 +15,7 @@ class PlacesController < ApplicationController
     @place = Place.find(params[:place_id])
     @posts = BrowseHackerNewsService.new.call
     if current_user != nil
-      current_user.activity = :browsing_hacker_news.to_s
+      current_user.activity = :browse_hacker_news.to_s
       current_user.save
     end
   end

@@ -31,10 +31,10 @@
 			<% if user.items.count != 0 %>
 			  (holding: <% user.items.each_with_index do |item, index| %>
 			    <%= item.name %><% if user.items.count != 1 && index != user.items.count - 1 %><%= index == (user.items.count - 1) ? " and " : "," %><% end %><% end %>)
-        <% if user.activity.present? %>
-          (they appear to be: <%= user.activity %>)
-        <% end %>
 			<% end %>
+      <% if user.activity.present? %>
+        (they appear to be <%= User::ACTIVITIES[user.activity.to_sym][:doing_it] %>)
+      <% end %>
 		</span>
 	  <% end %>
   </div>
