@@ -2,10 +2,18 @@
 <% if @place.items.count != 0 %>
   <div>you see:
 	  <% @place.items.each do |item| %>
-	    <span class="item"><%= link_to item.name, item_path(item) %></span>
+		<span class="item"><%= link_to item.name, item_path(item) %></span>
 	  <% end %>
   </div>
 <% end %>
+<% if @place.characters.count != 0 %>
+  <div>you see:
+	  <% @place.characters.each do |character| %>
+		<span class="character"><%= link_to character.name, character_path(character) %></span>
+	  <% end %>
+  </div>
+<% end %>
+<div>exits:</div>
 <% @place.outgoing_links.each do |outgoing_link| %>
   <div><%= link_to outgoing_link.description, place_path(outgoing_link.to) %></div>
 <% end %>

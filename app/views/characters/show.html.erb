@@ -1,0 +1,9 @@
+<div>you’re chatting with <%= @character.name %></div>
+<% @messages.each do |message| %>
+  <div><%= message.from_user ? "you" : @character.name %>: <%= message.content %></div>
+<% end %>
+<%= simple_form_for [@character, @message] do |f| %>
+  <%= f.input :content, label: false %>
+  <%= f.submit "Send" %>
+<% end %>
+<div><%= link_to "return to #{@character.place.description}", place_path(@character.place) %></div>
