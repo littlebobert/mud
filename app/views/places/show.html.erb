@@ -1,5 +1,5 @@
 <div>
-  <%= @place.description %>. it’s <%= Time.now.strftime("%H:%M") %><% if @weather != nil %>. it’s <%= "#{@weather[:temp]}°C with #{@weather[:description]}" %><% end %>
+  <%= @place.description %>. it’s <%= Time.now.in_time_zone("Tokyo").strftime("%H:%M") %><% if @weather != nil %>. it’s <%= "#{@weather[:temp]}°C with #{@weather[:description]}" %><% end %>
 </div>
 <% if @place.items.count != 0 %>
   <div>you see:
