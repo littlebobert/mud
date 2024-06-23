@@ -19,8 +19,8 @@
 <% end %>
 <% if current_user != nil && current_user.items.count != 0 %>
   <div>you have:
-	  <% current_user.items.each do |item| %>
-		<span class="item"><%= link_to item.name, place_item_path(@place, item) %></span>
+	  <% current_user.items.each_with_index do |item, index| %>
+		  <span class="item"><%= link_to item.name, place_item_path(@place, item) %></span></span><% if current_user.items.count != 0 && index != current_user.items.count - 1 %><%= index == (current_user.items.count - 2) ? " and " : "," %><% end %>
 	  <% end %>
   </div>
 <% end %>
