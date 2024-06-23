@@ -12,6 +12,6 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   
   ACTIVITIES = { 
-    browse_hacker_news: { do_it: "browse hacker news", doing_it: "browsing hacker news" }
+    browse_hacker_news: { do_it: "browse hacker news on your phone", doing_it: "browsing hacker news on their phone" }
   }
 end

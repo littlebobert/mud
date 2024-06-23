@@ -23,6 +23,9 @@ class PlacesController < ApplicationController
   private
   
   def show_place(place)
+    if place.starting_zone
+      @weather = WeatherService.new(38.64261784896127, 139.3615705810681).call
+    end
     if current_user != nil
       current_user.activity = nil
       current_user.place = place

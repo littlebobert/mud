@@ -1,4 +1,6 @@
-<div><%= @place.description %></div>
+<div>
+  <%= @place.description %>. it’s <%= Time.now.strftime("%H:%M") %><% if @weather != nil %>. it’s <%= "#{@weather[:temp]}°C with #{@weather[:description]}" %><% end %>
+</div>
 <% if @place.items.count != 0 %>
   <div>you see:
 	  <% @place.items.each_with_index do |item, index| %>
