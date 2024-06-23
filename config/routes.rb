@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "places#home"
   
-  resources :places, only: [:show]
-  resources :items, only: [:show, :update]
+  resources :places, only: [:show] do
+    resources :items, only: [:show, :update]
+  end
+  
   resources :characters, only: [:show] do
     resources :messages, only: [:create]
   end

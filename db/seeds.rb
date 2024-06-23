@@ -21,7 +21,7 @@ all_gender_restroom = Place.new(description: "all gender restroom")
 lecture_hall = Place.new(description: "lecture hall")
 sink = Place.new(description: "sink and trashcans")
 
-link1 = Link.new(from: outside, description: "a locked door", to: entryway)
+link1 = Link.new(from: outside, description: "a closed door to enter", to: entryway)
 link2 = Link.new(from: entryway, to: outside, description: "a closed door to leave the building")
 link3 = Link.new(from: entryway, to: front_hallway, description: "an open door into the front hallway")
 link4 = Link.new(from: front_hallway, to: entryway, description: "an open door back into the front entryway")
@@ -50,7 +50,7 @@ link8.save!
 link9.save!
 link10.save!
 
-onigiri = Item.new(name: "an onigiri", description: "a fresh tuna mayonaise onigiri from Lawson", place: lecture_hall)
+onigiri = Item.new(name: "a fresh onigiri", description: "a fresh tuna mayonaise onigiri from Lawson", place: lecture_hall)
 
 onigiri.save!
 
