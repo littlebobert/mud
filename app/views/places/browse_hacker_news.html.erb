@@ -1,0 +1,5 @@
+<div>hacker news:</div>
+<% @posts.each_with_index do |post, index| %>
+  <div><%= "#{index+1}. " %><%= link_to post[:title], post[:url] %> [<%= post[:score] %> points] (<%= link_to "comments", "https://news.ycombinator.com/item?id=#{post[:id]}" %>)</div>
+<% end %>
+<%= link_to "back to: #{@place.description}", place_path(@place) %>

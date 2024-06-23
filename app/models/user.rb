@@ -10,4 +10,8 @@ class User < ApplicationRecord
   belongs_to :place, optional: true
   
   validates :name, presence: true, uniqueness: true
+  
+  ACTIVITIES = { 
+    browse_hacker_news: { do_it: "browse hacker news", doing_it: "browsing hacker news" }
+  }
 end

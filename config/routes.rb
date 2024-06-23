@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "places#home"
   
   resources :places, only: [:show] do
+    get "browse_hacker_news", to: "places#browse_hacker_news"
     resources :items, only: [:show, :update]
   end
   
