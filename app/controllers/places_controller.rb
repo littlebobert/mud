@@ -23,5 +23,6 @@ class PlacesController < ApplicationController
     if current_user != nil
       @other_users = @other_users.where.not(email: current_user.email)
     end
+    render "show"
   end
 end
