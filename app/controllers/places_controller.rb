@@ -3,16 +3,22 @@ class PlacesController < ApplicationController
   
 	def home
     @place = Place.where(starting_zone: true).first
-    render "show"
+    show_place(@place)
 	end
   
   def show
     @place = Place.find(params[:id])
-    if current_user
-      current_user.place = @place
+    show_place(@place)
+  end
+  
+  private
+  
+  def show_place(place)
+    if current_user != nil
+      current_user.place = place
       current_user.save
     end
-    @other_users = User.where(place: @place)
+    @other_users = User.where(place: place)
     if current_user != nil
       @other_users = @other_users.where.not(email: current_user.email)
     end
