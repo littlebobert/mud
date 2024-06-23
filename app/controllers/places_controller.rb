@@ -17,6 +17,7 @@ class PlacesController < ApplicationController
     if current_user != nil
       current_user.place = place
       current_user.save
+      puts "tried to save current_user. errors: #{current_user.errors != nil ? current_user.errors.full_messages : ""}"
     end
     @other_users = User.where(place: place)
     if current_user != nil
