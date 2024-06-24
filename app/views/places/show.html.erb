@@ -27,19 +27,18 @@
   </div>
 <% end %>
 <% if @other_users != nil && @other_users.count != 0 %>
-  <div>also here with you (but possibly resting):
-	  <% @other_users.each do |user| %>
-		<span class="user"><%= user.name %>
-			<% if user.items.count != 0 %>
-			  (holding: <% user.items.each_with_index do |item, index| %>
-			    <%= item.name %><% if user.items.count != 1 && index != user.items.count - 1 %><%= index == (user.items.count - 1) ? " and " : "," %><% end %><% end %>)
-			<% end %>
-      <% if user.activity.present? %>
-        (they appear to be <%= User::ACTIVITIES[user.activity.to_sym][:doing_it] %>)
-      <% end %>
-		</span>
-	  <% end %>
-  </div>
+  <div>also here with you (but possibly resting):</div>
+  <% @other_users.each do |user| %>
+	<div class="user"><%= user.name %>
+		<% if user.items.count != 0 %>
+		  (holding: <% user.items.each_with_index do |item, index| %>
+		    <%= item.name %><% if user.items.count != 1 && index != user.items.count - 1 %><%= index == (user.items.count - 1) ? " and " : "," %><% end %><% end %>)
+		<% end %>
+    <% if user.activity.present? %>
+      (they appear to be <%= User::ACTIVITIES[user.activity.to_sym][:doing_it] %>)
+    <% end %>
+	</div>
+  <% end %>
 <% end %>
 <div>you can:
   <% User::ACTIVITIES.each do |key, value| %>
