@@ -4,6 +4,26 @@
 <% end %>
 <%= simple_form_for [@character, @message] do |f| %>
   <%= f.input :content, label: false %>
-  <%= f.submit "Send" %>
+  <%= f.submit "send" %>
+<% end %>
+<% if @available_quests.count != 0 %>
+  <div>available quests:</div>
+  <% @available_quest_infos.each do |available_quest_info| %>
+    <div>
+      <%= simple_form_for [available_quest_info[:quest], available_quest_info[:quest_log]], :html => { class: "d-inline" } do |f| %>
+        <%= f.submit "accept quest" %>
+      <% end %>
+      <%= "#{available_quest_info[:quest].name}: #{available_quest_info[:quest].description}" %>
+    </div>
+  <% end %>
+<% end %>
+<% if @fullfillable_quest_logs.count != 0 %>
+  <% @fullfillable_quest_logs.each do |fullfillable_quest_log| %>
+    <div>
+      <%= simple_form_for [fullfillable_quest_log.quest, fullfillable_quest_log], method: :patch, :html => { class: "d-inline" } do |f| %>
+        <%= f.submit "give #{fullfillable_quest_log.quest.requirement.description} to #{@character.name}", class: "mt-1" %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 <div><%= link_to "return to #{@character.place.description}", place_path(@character.place) %></div>

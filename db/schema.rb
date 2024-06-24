@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_23_191742) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_24_161120) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_191742) do
     t.datetime "updated_at", null: false
     t.bigint "place_id"
     t.bigint "user_id"
+    t.boolean "replenishes", default: false
     t.index ["place_id"], name: "index_items_on_place_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -62,6 +63,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_191742) do
     t.boolean "starting_zone", default: false
   end
 
+  create_table "quest_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quest_id", null: false
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id"], name: "index_quest_logs_on_quest_id"
+    t.index ["user_id"], name: "index_quest_logs_on_user_id"
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.string "name"
+    t.text "description"
+    t.bigint "requirement_id", null: false
+    t.bigint "reward_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_quests_on_character_id"
+    t.index ["requirement_id"], name: "index_quests_on_requirement_id"
+    t.index ["reward_id"], name: "index_quests_on_reward_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -85,5 +109,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_191742) do
   add_foreign_key "links", "places", column: "to_id"
   add_foreign_key "messages", "characters"
   add_foreign_key "messages", "users"
+  add_foreign_key "quest_logs", "quests"
+  add_foreign_key "quest_logs", "users"
+  add_foreign_key "quests", "characters"
+  add_foreign_key "quests", "items", column: "requirement_id"
+  add_foreign_key "quests", "items", column: "reward_id"
   add_foreign_key "users", "places"
 end

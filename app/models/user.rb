@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :items
   belongs_to :place, optional: true
+  has_many :quest_logs
   
   validates :name, presence: true, uniqueness: true
   
