@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
         "#{message.created_at.strftime("%b %e, %l:%M %p")}: #{message.content}"
       end
       response = DialogService.new(@character.name, @character.description, @character.only_speaks_japanese, @character.item, @character.quests, chat_history).call
+      notice = ""
       if response.start_with?("Here it is") || response.start_with?("はい、これ")
         item = @character.item
         item.character = nil
@@ -19,7 +20,7 @@ class MessagesController < ApplicationController
       @response = Message.new(message_params.merge(character: @character, user: current_user, content: response, from_user: false))
       if @response.save
         @place = @character.place
-        redirect_to character_path(@character)
+        redirect_to character_path(@character), notice: notice
       else
         render "character/show", status: :unprocessable_entity  
       end
