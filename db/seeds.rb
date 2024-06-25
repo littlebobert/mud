@@ -11,9 +11,9 @@
 Link.destroy_all
 QuestLog.destroy_all
 Quest.destroy_all
-Item.destroy_all
 Message.destroy_all
 Character.destroy_all
+Item.destroy_all
 User.all.each do |user|
 	user.place = nil
   user.save!
@@ -27,6 +27,8 @@ all_gender_restroom = Place.create!(description: "all gender restroom")
 lecture_hall = Place.create!(description: "lecture hall")
 sink = Place.create!(description: "sink and trashcans")
 conbini = Place.create!(description: "inside Lawson")
+meguro_dori = Place.create!(description: "on Meguro-dori, outisde the police box")
+police_box = Place.create!(description: "inside the Shimomeguro police box")
 
 link1 = Link.create!(from: outside, description: "a closed door to enter", to: entryway)
 link2 = Link.create!(from: entryway, to: outside, description: "a closed door to leave the building")
@@ -40,6 +42,10 @@ link9 = Link.create!(from: lecture_hall, to: sink, description: "the sink and tr
 link10 = Link.create!(from: sink, to: lecture_hall, description: "back into the main lecture area")
 link11 = Link.create!(from: outside, to: conbini, description: "down the street a ways to conbini")
 link12 = Link.create!(from: conbini, to: outside, description: "a automatic sliding door to exit")
+link13 = Link.create!(from: outside, to: meguro_dori, description: "down the side street towards Meguro-dori")
+link14 = Link.create!(from: meguro_dori, to: police_box, description: "on Meguro-dori, outside the police box")
+link15 = Link.create!(from: police_box, to: meguro_dori, description: "out the door onto Meguro-dori")
+link16 = Link.create!(from: meguro_dori, to: outside, description: "back towards Le Wagon")
 
 onigiri = Item.create!(name: "a fresh onigiri", description: "a fresh tuna mayonaise onigiri from Lawson", place: lecture_hall)
 
@@ -50,11 +56,17 @@ kaki_pi = Item.create!(name: "a bag of kaki-pi", description: "a small bag of pe
 vegetables = Item.create!(name: "a container of vegetables and dip", description: "a small container of carrots, cucumbers, daikon radish and cabbage pieces, with dip", place: conbini)
 mints = Item.create!(name: "some breath mints", description: "a blue container of Mintia (cold smash flavor)", place: conbini)
 monster = Item.create!(name: "a white Monster", description: "a cold can of white Monster (Ultra)", place: conbini)
+macbook = Item.create!(name: "a MacBook Pro", description: "a black 14-inch MacBook Pro with a red and white Le Wagon sticker on the back")
+ichiman_yen = Item.create!(name: "an ichi-man yen", description: "a crisp 10,000 yen note")
 
 doug = Character.create!(name: "Doug", description: "Le Wagon instructor. specializes in Ruby on Rails", place: lecture_hall)
+
+police_man = Character.create!(name: "police man", description: "a Tokyo police officer", place: police_box, only_speaks_japanese: true, item: macbook)
 
 sticker = Item.create!(name: "a Le Wagon sticker", description: "a red and white sticker of the Le Wagon logo")
 
 bring_doug_coffee = Quest.create!(name: "bring Doug coffee", description: "Doug was in a hurry to get to Le Wagon this morning and didn’t have time to grab a coffee", requirement: coffee, reward: sticker, character: doug)
+
+find_lost_macbook = Quest.create!(name: "find Doug’s lost MacBook", description: "Doug lost his MacBook. it was a black 14-inch MacBook Pro with a red and white Le Wagon sticker on the back", requirement: macbook, reward: ichiman_yen, character: doug)
 
 puts "created #{Place.count} places, #{Link.count} links, #{Item.count} items, #{Character.count} characters, and #{Quest.count} quests"

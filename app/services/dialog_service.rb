@@ -2,9 +2,11 @@ require 'http'
 require 'json'
 
 class DialogService
-  def initialize(npc_name, npc_description, quests, conversation_history)
+  def initialize(npc_name, npc_description, only_speaks_japanese, item, quests, conversation_history)
     @npc_name = npc_name
     @npc_description = npc_description
+    @only_speaks_japanese = only_speaks_japanese
+    @item = item
     @quests = quests
     @conversation_history = conversation_history
   end
@@ -21,8 +23,14 @@ class DialogService
     quest_descriptions = @quests.map do |quest|
       "#{quest.name}: #{quest.description}"
     end
+    
+    quests_prompt = quest_descriptions.count > 0 ? "In their first message and only in their first mention, casually mention the following quests: #{quest_descriptions}" : ""
+    
+    japanese_language_request = @only_speaks_japanese ? "Please only respond in Japanese, not English. And act as if you don’t speak English." : ""
+    
+    item_prompt = @item != nil ? "If the user asks for #{@item.name} and describes it (#{@item.description}), please respond with \"Here it is\", or \"はい、これ\"." : ""
   
-  	prompt = "We are building a text based RPG about a coding bootcamp. Please respond to the user as if you were an NPC with the following name: #{@npc_name} and description: #{@npc_description}. Please respond in the way that a human would respond verbally. Please just respond with the content, don’t include the NPC name. In their first message and only in their first mention, casually mention the following quests: #{quest_descriptions}. Here is the conversation history so far: #{@conversation_history}"
+  	prompt = "We are building a text based RPG about a coding bootcamp. Please respond to the user as if you were an NPC with the following name: #{@npc_name} and description: #{@npc_description}. Please respond in the way that a human would respond verbally. Please just respond with the content, don’t include the NPC name. #{japanese_language_request} #{quests_prompt} #{item_prompt} Here is the conversation history so far: #{@conversation_history}"
 	
   	body = {
 		  model: 'gpt-4o',

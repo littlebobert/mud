@@ -9,7 +9,7 @@
 <% if @available_quests.count != 0 %>
   <div>available quests:</div>
   <% @available_quest_infos.each do |available_quest_info| %>
-    <div>
+    <div class="mt-2">
       <%= simple_form_for [available_quest_info[:quest], available_quest_info[:quest_log]], :html => { class: "d-inline" } do |f| %>
         <%= f.submit "accept quest" %>
       <% end %>
@@ -26,4 +26,5 @@
     </div>
   <% end %>
 <% end %>
+<%= render "shared/items", place: @character.place %>
 <div><%= link_to "return to #{@character.place.description}", place_path(@character.place) %></div>

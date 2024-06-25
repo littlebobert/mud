@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_24_161120) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_012955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_161120) do
     t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "only_speaks_japanese", default: false
+    t.bigint "item_id"
+    t.index ["item_id"], name: "index_characters_on_item_id"
     t.index ["place_id"], name: "index_characters_on_place_id"
   end
 
@@ -102,6 +105,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_161120) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "characters", "items"
   add_foreign_key "characters", "places"
   add_foreign_key "items", "places"
   add_foreign_key "items", "users"
