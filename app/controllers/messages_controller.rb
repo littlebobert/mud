@@ -14,6 +14,7 @@ class MessagesController < ApplicationController
         item.character = nil
         item.user = current_user
         item.save
+        notice = "you received #{item.name}"
       end
       @response = Message.new(message_params.merge(character: @character, user: current_user, content: response, from_user: false))
       if @response.save

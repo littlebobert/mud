@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_012955) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_142403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_012955) do
     t.bigint "reward_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "one_shot", default: false
     t.index ["character_id"], name: "index_quests_on_character_id"
     t.index ["requirement_id"], name: "index_quests_on_requirement_id"
     t.index ["reward_id"], name: "index_quests_on_reward_id"
