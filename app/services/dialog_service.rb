@@ -24,7 +24,9 @@ class DialogService
       "#{quest.name}: #{quest.description}"
     end
     
-    quests_prompt = quest_descriptions.count > 0 ? "In their first message and only in their first mention, casually mention the following quests: #{quest_descriptions}" : ""
+    # quests_prompt = quest_descriptions.count > 0 ? "In their first message and only in their first message, casually mention the following quests: #{quest_descriptions}" : ""
+    
+    quests_prompt = ""
     
     japanese_language_request = @only_speaks_japanese ? "Please only respond in Japanese, not English. And act as if you don’t speak English." : ""
     

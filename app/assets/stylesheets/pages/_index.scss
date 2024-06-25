@@ -1,2 +1,17 @@
 // Import page-specific CSS files here.
 @import "home";
+
+body {
+  font-family: Verdana;
+  font-size: 14px;
+  background: #0D1321;
+  color: #FFEDDF;
+}
+
+a {
+  color: #C5D86D;
+}
+
+.form-text {
+  color: inherit;
+}

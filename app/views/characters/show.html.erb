@@ -2,14 +2,14 @@
 <% @messages.each do |message| %>
   <div><%= message.from_user ? "you" : @character.name %>: <%= message.content %></div>
 <% end %>
-<%= simple_form_for [@character, @message] do |f| %>
+<%= simple_form_for [@character, @message], :html => { class: "mt-2" } do |f| %>
   <%= f.input :content, label: false %>
   <%= f.submit "send" %>
 <% end %>
 <% if @available_quests.count != 0 %>
   <div>available quests:</div>
   <% @available_quest_infos.each do |available_quest_info| %>
-    <div class="mt-2">
+    <div class="mt-1 mb-1">
       <%= simple_form_for [available_quest_info[:quest], available_quest_info[:quest_log]], :html => { class: "d-inline" } do |f| %>
         <%= f.submit "accept quest" %>
       <% end %>
