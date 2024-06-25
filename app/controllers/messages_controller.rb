@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
         "#{message.created_at.strftime("%b %e, %l:%M %p")}: #{message.content}"
       end
       response = DialogService.new(@character.name, @character.description, @character.only_speaks_japanese, @character.item, @character.quests, chat_history).call
-      notice = ""
+      notice = nil
       if response.start_with?("Here it is") || response.start_with?("はい、これ")
         item = @character.item
         item.character = nil
