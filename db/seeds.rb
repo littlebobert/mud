@@ -19,15 +19,16 @@ User.all.each do |user|
   user.save!
 end
 Place.destroy_all
+WeatherReport.destroy_all
 
-outside = Place.create!(description: "outside the front door to the Le Wagon Tokyo building", starting_zone: true)
+outside = Place.create!(description: "outside the front door to the Le Wagon Tokyo building", starting_zone: true, outdoors: true)
 entryway = Place.create!(description: "inside the entry way")
 front_hallway = Place.create!(description: "front hallway")
 all_gender_restroom = Place.create!(description: "all gender restroom")
 lecture_hall = Place.create!(description: "lecture hall")
 sink = Place.create!(description: "sink and trashcans")
 conbini = Place.create!(description: "inside Lawson")
-meguro_dori = Place.create!(description: "on Meguro-dori, outside the police box")
+meguro_dori = Place.create!(description: "on Meguro-dori, outside the police box", outdoors: true)
 police_box = Place.create!(description: "inside the Shimomeguro police box")
 
 link1 = Link.create!(from: outside, description: "a closed door to enter", to: entryway)
@@ -69,4 +70,6 @@ bring_doug_coffee = Quest.create!(name: "bring Doug coffee", description: "Doug 
 
 find_lost_macbook = Quest.create!(name: "find Doug’s lost MacBook", description: "Doug lost his MacBook. it was a black 14-inch MacBook Pro with a red and white Le Wagon sticker on the back", requirement: macbook, reward: ichiman_yen, character: doug, one_shot: true)
 
-puts "created #{Place.count} places, #{Link.count} links, #{Item.count} items, #{Character.count} characters, and #{Quest.count} quests"
+FetchWeatherJob.perform_now
+
+puts "created #{Place.count} places, #{Link.count} links, #{Item.count} items, #{Character.count} characters, #{Quest.count} quests, and #{WeatherReport.count} weather reports"
