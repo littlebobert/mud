@@ -5,6 +5,10 @@ export default class extends Controller {
   static values = { placeId: Number }
   static targets = ["messages"]
 
+  resetForm(event) {
+    event.target.reset()
+  }
+
   connect() {
     this.subscription = createConsumer().subscriptions.create(
       { channel: "PlaceChannel", id: this.placeIdValue },
