@@ -5,10 +5,8 @@ class ChatMessagesController < ApplicationController
     @chat_message.place = @place
     @chat_message.user = current_user
     if @chat_message.save
-      PlaceChannel.broadcast_to(
-        @place,
-        render_to_string(partial: "chat_message", locals: { chat_message: @chat_message} )
-      )
+      hash = { message: render_to_string(partial: "chat_message", locals: { chat_message: @chat_message} ) }
+      PlaceChannel.broadcast_to(@place, hash)
       head :ok
     else
       render "places/show", status: :unprocessable_entity

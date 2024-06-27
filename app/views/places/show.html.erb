@@ -39,16 +39,19 @@
     <%= link_to value[:do_it], "/places/#{@place.id}/#{key.to_s}" %>
   <% end %>
 </div>
-<div class="place" data-controller="place-subscription" data-place-subscription-place-id-value="<%= @place.id %>">
-  <div class="messages" data-place-subscription-target="messages"></div>
-  <% if current_user != nil %>
-    <%= simple_form_for [@place, @chat_message], html: { data: { action: "turbo:submit-end->place-subscription#resetForm" }, class: "mt-2 d-flex" } do |f| %>
-      <%= f.submit "send", class: "mb-3" %>
-      <%= f.input :content,
-        label: false,
-        placeholder: "say something",
-        wrapper_html: { class: "col-lg-6 col-9" }
-      %>
+<% if current_user != nil %>
+  <div class="place" data-controller="place-subscription" data-place-subscription-place-id-value="<%= @place.id %>" data-place-subscription-user-id-value="<%= current_user.id %>">
+    <div class="arrivals-and-departures" data-place-subscription-target="arrivalsAndDepartures"></div>
+    <div class="messages" data-place-subscription-target="messages"></div>
+    <% if current_user != nil %>
+      <%= simple_form_for [@place, @chat_message], html: { data: { action: "turbo:submit-end->place-subscription#resetForm" }, class: "mt-2 d-flex gap-2" } do |f| %>
+        <%= f.submit "send", class: "mb-3" %>
+        <%= f.input :content,
+          label: false,
+          placeholder: "say something",
+          wrapper_html: { class: "col-lg-6 col-9" }
+        %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

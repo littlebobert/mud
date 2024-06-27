@@ -2,8 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 import { createConsumer } from "@rails/actioncable"
 
 export default class extends Controller {
-  static values = { placeId: Number }
-  static targets = ["messages"]
+  static values = { placeId: Number, userId: Number }
+  static targets = ["messages", "arrivalsAndDepartures"]
 
   resetForm(event) {
     event.target.reset()
@@ -12,9 +12,17 @@ export default class extends Controller {
   connect() {
     this.subscription = createConsumer().subscriptions.create(
       { channel: "PlaceChannel", id: this.placeIdValue },
-      { received: data => this.messagesTarget.insertAdjacentHTML("beforeend", data) }
+      { received: data => {
+        if (data["message"] != null) {
+          this.messagesTarget.insertAdjacentHTML("beforeend", data["message"]); 
+        } else if (data["user_id"] != this.userIdValue) {
+          console.log("arrival");
+          this.arrivalsAndDeparturesTarget.insertAdjacentHTML("beforeend", data["arrival_or_departure"]);
+        }
+      }}
     )
     console.log(`subscribed to the place with id ${this.placeIdValue}.`)
+    console.log(this.arrivalsAndDeparturesTarget);
   }
   
   disconnect() {

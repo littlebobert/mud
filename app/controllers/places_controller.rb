@@ -28,8 +28,10 @@ class PlacesController < ApplicationController
     end
     if current_user != nil
       current_user.activity = nil
+      previous_place = current_user.place
       current_user.place = place
       current_user.save
+      announce_departure_and_arrival(place, previous_place)
       puts "tried to save current_user. errors: #{current_user.errors != nil ? current_user.errors.full_messages : ""}"
     end
     @other_users = User.where(place: place)
@@ -39,5 +41,22 @@ class PlacesController < ApplicationController
     @chat_messages = []
     @chat_message = ChatMessage.new
     render "show"
+  end
+  
+  def announce_departure_and_arrival(place, previous_place)
+    return if place == previous_place
+    
+    # departure:
+    hash = { 
+      arrival_or_departure: render_to_string(partial: "arrival_or_departure", locals: { user: current_user, arrival: false } ),
+      user_id: current_user.id
+    }
+    PlaceChannel.broadcast_to(previous_place, hash)
+    # arrival:
+    hash = { 
+      arrival_or_departure: render_to_string(partial: "arrival_or_departure", locals: { user: current_user, arrival: true } ),
+      user_id: current_user.id
+    }
+    PlaceChannel.broadcast_to(place, hash)
   end
 end
