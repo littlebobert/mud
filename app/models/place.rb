@@ -6,4 +6,5 @@ class Place < ApplicationRecord
   has_many :items
   has_many :characters
   has_many :users
+  has_many :chat_messages
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_140410) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_184215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_140410) do
     t.bigint "item_id"
     t.index ["item_id"], name: "index_characters_on_item_id"
     t.index ["place_id"], name: "index_characters_on_place_id"
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.string "content"
+    t.bigint "place_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_chat_messages_on_place_id"
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -120,6 +130,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_140410) do
 
   add_foreign_key "characters", "items"
   add_foreign_key "characters", "places"
+  add_foreign_key "chat_messages", "places"
+  add_foreign_key "chat_messages", "users"
   add_foreign_key "items", "places"
   add_foreign_key "items", "users"
   add_foreign_key "links", "places", column: "from_id"

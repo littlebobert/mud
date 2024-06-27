@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :places, only: [:show] do
     get "browse_hacker_news", to: "places#browse_hacker_news"
     resources :items, only: [:show, :update]
+    resources :chat_messages, only: :create
   end
   
   resources :characters, only: [:show] do
