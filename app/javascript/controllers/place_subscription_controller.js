@@ -13,11 +13,13 @@ export default class extends Controller {
     this.subscription = createConsumer().subscriptions.create(
       { channel: "PlaceChannel", id: this.placeIdValue },
       { received: data => {
+        console.log(data);
         if (data["message"] != null) {
           this.messagesTarget.insertAdjacentHTML("beforeend", data["message"]); 
-        } else if (data["user_id"] != this.userIdValue) {
-          console.log("arrival");
+        } else if (data["arrival_or_departure"] != null && data["user_id"] != this.userIdValue) {
           this.arrivalsAndDeparturesTarget.insertAdjacentHTML("beforeend", data["arrival_or_departure"]);
+        } else if (data["outdoor_activity"] != null) {
+          this.arrivalsAndDeparturesTarget.insertAdjacentHTML("beforeend", data["outdoor_activity"]);
         }
       }}
     )

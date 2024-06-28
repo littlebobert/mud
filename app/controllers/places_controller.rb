@@ -20,6 +20,10 @@ class PlacesController < ApplicationController
     end
   end
   
+  def run_ruby_code
+    @place = Place.find(params[:place_id])
+  end
+  
   private
   
   def show_place(place)
