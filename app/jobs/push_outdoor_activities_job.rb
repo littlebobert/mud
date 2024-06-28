@@ -16,6 +16,9 @@ class PushOutdoorActivitiesJob < ApplicationJob
   ]
 
   def perform(*args)
+    time = Time.now.in_time_zone("Tokyo")
+    return unless 7 <= time.hour && time.hour <= 18
+
     Place.where(outdoors: true).each do |place|
       random_activity = ACTIVITY_DESCRIPTIONS.sample
       hash = { 
