@@ -28,7 +28,7 @@ class DialogService
     
     quests_prompt = ""
     
-    japanese_language_request = @only_speaks_japanese ? "Please only respond in Japanese, not English. And act as if you don’t speak English." : ""
+    japanese_language_request = @only_speaks_japanese ? "Please only respond in Japanese, not English. And act as if you don’t speak or understand English." : ""
     
     item_prompt = @item != nil ? "If the user asks for #{@item.name} and describes it (#{@item.description}), please respond with \"Here it is\", or \"はい、これ\"." : ""
   
