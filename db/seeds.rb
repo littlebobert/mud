@@ -18,6 +18,7 @@ User.all.each do |user|
 	user.place = nil
   user.save!
 end
+ChatMessage.destroy_all
 Place.destroy_all
 WeatherReport.destroy_all
 
