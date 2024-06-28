@@ -1,21 +1,9 @@
 class ChatMessagesController < ApplicationController
   def create
     @place = Place.find(params[:place_id])
-    @chat_message = ChatMessage.new(message_params)
-    @chat_message.place = @place
-    @chat_message.user = current_user
-    if @chat_message.save
-      hash = { message: render_to_string(partial: "chat_message", locals: { chat_message: @chat_message} ) }
-      PlaceChannel.broadcast_to(@place, hash)
-      head :ok
-    else
-      render "places/show", status: :unprocessable_entity
-    end
-  end
-  
-  private
-  
-  def message_params
-    params.require(:chat_message).permit(:content)
+    locals = { user: current_user, content: params[:chat_message][:content],  }
+    hash = { message: render_to_string(partial: "chat_message", locals: locals ) }
+    PlaceChannel.broadcast_to(@place, hash)
+    head :ok
   end
 end
