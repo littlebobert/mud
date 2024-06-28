@@ -1,7 +1,7 @@
 require 'http'
 require 'json'
 
-class OpenAIService
+class OpenAiService
   def initialize(prompt)
     @prompt = prompt
   end
