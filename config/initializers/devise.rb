@@ -310,4 +310,14 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  
+  config.omniauth :apple, ENV['APPLE_SERVICE_BUNDLE_ID'], '', {
+    scope: 'email name',
+    team_id: ENV['APPLE_APP_ID_PREFIX'],
+    key_id: ENV['APPLE_KEY_ID'],
+    pem: ENV['APPLE_P8_FILE_CONTENT_WITH_EXTRA_NEWLINE'],
+    redirect_uri: ENV['APPLE_REDIRECT_URI']
+  }
+  
+  OmniAuth.config.logger = Rails.logger
 end

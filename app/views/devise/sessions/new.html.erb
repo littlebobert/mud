@@ -1,5 +1,9 @@
 <h2>log in</h2>
 
+<%= link_to user_apple_omniauth_authorize_path, data: { 'turbo-method' => :post } do %>
+  Sign in with Apple
+<% end %>
+
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
     <%= f.input :email,
