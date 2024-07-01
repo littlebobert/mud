@@ -32,7 +32,8 @@ module Mud
     config.active_job.queue_adapter = :sidekiq
     
     config.action_dispatch.cookies_same_site_protection = lambda { |request|
-      if request.path.starts_with?("/auth/apple")
+      puts "got here: #{request.path}. class: #{request.path.class}"
+      if request.path.start_with?("/users/auth/apple")
         :none
       else
         :lax
