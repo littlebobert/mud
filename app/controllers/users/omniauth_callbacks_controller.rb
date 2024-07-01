@@ -24,6 +24,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+    
+  def verified_request?
+    action_name == 'apple' || super
+  end
   
   def valid_apple_callback?(state)
     stored_state = session.delete('omniauth.state')

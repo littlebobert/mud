@@ -4,7 +4,12 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     team_id: ENV['APPLE_APP_ID_PREFIX'],
     key_id: ENV['APPLE_KEY_ID'],
     pem: ENV['APPLE_P8_FILE_CONTENT_WITH_EXTRA_NEWLINE'],
-    redirect_uri: ENV['APPLE_REDIRECT_URI']
+    redirect_uri: ENV['APPLE_REDIRECT_URI'],
+    client_options: {
+      site: 'https://appleid.apple.com',
+      authorize_url: 'https://appleid.apple.com/auth/authorize',
+      token_url: 'https://appleid.apple.com/auth/token'
+    }
   }
 end
 
