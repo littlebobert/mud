@@ -7,3 +7,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     redirect_uri: ENV['APPLE_REDIRECT_URI']
   }
 end
+
+OmniAuth.config.allowed_request_methods = [:post, :get]
+OmniAuth.config.silence_get_warning = true
