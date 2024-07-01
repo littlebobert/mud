@@ -30,5 +30,10 @@ module Mud
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :sidekiq
+    
+    config.action_dispatch.cookies_same_site_protection =
+      lambda do |request|
+        request.path.starts_with?("/auth/apple") ? :none : :lax
+      end
   end
 end
