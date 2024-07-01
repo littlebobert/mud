@@ -10,7 +10,7 @@ class AuthController < ApplicationController
   def apple_authorization_url
     "https://appleid.apple.com/auth/authorize?" + {
       client_id: ENV['APPLE_SERVICE_BUNDLE_ID'],
-      redirect_uri: CGI.escape(apple_callback_url),
+      redirect_uri: apple_callback_url,
       response_type: 'code',
       scope: 'email name',
       response_mode: 'form_post',
