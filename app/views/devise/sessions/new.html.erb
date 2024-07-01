@@ -1,6 +1,6 @@
 <h2>log in</h2>
 
-<%= link_to user_apple_omniauth_authorize_path, data: { 'turbo-method' => :post } do %>
+<%= link_to apple_login_path, data: { turbo: false } do %>
   Sign in with Apple
 <% end %>
 
