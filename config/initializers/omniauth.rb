@@ -16,11 +16,9 @@ end
 OmniAuth.config.allowed_request_methods = [:post, :get]
 OmniAuth.config.silence_get_warning = true
 
-previous_before_request_phase = OmniAuth.config.before_request_phase
-OmniAuth.config.before_request_phase = -> (env) do
-  # This is just in case there was something else configured before
-  previous_before_request_phase.call(env) if previous_before_request_phase
-
-  env['rack.session.options']['same_site'] = 'None'
-  env['rack.session.options']['secure'] = true
+# This ensures that the CSRF token is passed to OmniAuth
+OmniAuth.config.before_request_phase do |env|
+  request = ActionDispatch::Request.new(env)
+  env['omniauth.origin'] = request.base_url
+  env['omniauth.params'] = request.params
 end
