@@ -15,3 +15,12 @@ end
 
 OmniAuth.config.allowed_request_methods = [:post, :get]
 OmniAuth.config.silence_get_warning = true
+
+previous_before_request_phase = OmniAuth.config.before_request_phase
+OmniAuth.config.before_request_phase = -> (env) do
+  # This is just in case there was something else configured before
+  previous_before_request_phase.call(env) if previous_before_request_phase
+
+  env['rack.session.options']['same_site'] = 'None'
+  env['rack.session.options']['secure'] = true
+end
