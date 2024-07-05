@@ -8,13 +8,3 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     authorized_client_ids: [ ENV['APPLE_SERVICE_BUNDLE_ID'] ]
   }
 end
-
-OmniAuth.config.allowed_request_methods = [:post, :get]
-OmniAuth.config.silence_get_warning = true
-
-# This ensures that the CSRF token is passed to OmniAuth
-OmniAuth.config.before_request_phase do |env|
-  request = ActionDispatch::Request.new(env)
-  env['omniauth.origin'] = request.base_url
-  env['omniauth.params'] = request.params
-end
