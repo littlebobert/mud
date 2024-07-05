@@ -1,8 +1,6 @@
 <h2>log in</h2>
 
-<%= link_to apple_login_path, data: { turbo: false } do %>
-  Sign in with Apple
-<% end %>
+<div><%= link_to "Sign In with Apple", "/users/auth/apple" %></div>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">

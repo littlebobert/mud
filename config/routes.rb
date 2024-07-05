@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
-  get '/auth/apple', to: 'auth#apple_login', as: :apple_login
+  # get '/auth/apple', to: 'auth#apple_login', as: :apple_login
+  post '/auth/apple/callback', to: 'sessions#callback'
   root to: "places#home"
   
   resources :places, only: [:show] do
