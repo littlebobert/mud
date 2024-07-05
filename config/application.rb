@@ -31,6 +31,8 @@ module Mud
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :sidekiq
     
-    config.action_dispatch.cookies_same_site_protection = :none
+    config.action_dispatch.cookies_same_site_protection = lambda { |request|
+      request.path == '/users/auth/apple' ? :none : :lax
+    }
   end
 end
