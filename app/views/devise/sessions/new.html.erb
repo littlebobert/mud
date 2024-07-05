@@ -1,6 +1,6 @@
 <h2>log in</h2>
 
-<div><%= link_to "Sign In with Apple", "/users/auth/apple" %></div>
+<div><%= button_to "Sign in with Apple", user_apple_omniauth_authorize_path, data: { turbo: false } %></div>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
