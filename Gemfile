@@ -56,7 +56,6 @@ gem "sidekiq-failures"
 gem 'omniauth'
 gem 'omniauth-apple'
 gem "omniauth-rails_csrf_protection"
-gem 'rack-cors'
 
 group :development, :test do
   gem "dotenv-rails"
