@@ -16,5 +16,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     Rails.logger.error("OmniAuth failure: #{failure_message}")
     redirect_to root_path, alert: "Authentication failed, please try again."
   end
+  
+  private
+    
+  def verified_request?
+    action_name == 'apple' || super
+  end
 
 end
