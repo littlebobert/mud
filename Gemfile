@@ -55,7 +55,7 @@ gem "sidekiq", "~> 7"
 gem "sidekiq-failures"
 gem 'omniauth'
 gem 'omniauth-apple'
-gem "omniauth-rails_csrf_protection"
+# gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   gem "dotenv-rails"
