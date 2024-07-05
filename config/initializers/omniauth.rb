@@ -3,8 +3,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: 'email',
     team_id: ENV['APPLE_APP_ID_PREFIX'],
     key_id: ENV['APPLE_KEY_ID'],
-    pem: ENV['APPLE_P8_FILE_CONTENT_WITH_EXTRA_NEWLINE'],
-    provider_ignores_state: true
+    pem: ENV['APPLE_P8_FILE_CONTENT_WITH_EXTRA_NEWLINE']
   }
 end
 
