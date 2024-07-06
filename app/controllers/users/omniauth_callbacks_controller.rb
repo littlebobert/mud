@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_action :verify_authenticity_token, only: [:apple, :failure]
+  skip_forgery_protection only: :apple
   
   def apple
     @user = User.from_omniauth(request.env["omniauth.auth"])
