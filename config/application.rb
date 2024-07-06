@@ -6,34 +6,6 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-class AppleSameSiteMiddleware
-  def initialize(app)
-    @app = app
-  end
-
-  def call(env)
-    status, headers, body = @app.call(env)
-
-    if env['PATH_INFO'] == '/users/auth/apple/callback'
-      puts "path had /users/auth/apple/callback, doing the thing"
-      puts "headers:"
-      puts headers
-      set_cookie_header = headers['Set-Cookie']
-      if set_cookie_header
-        puts "set_cookie_header was true, doing the thing"
-        headers['Set-Cookie'] = set_cookie_header.split(';').map do |cookie|
-          cookie << '; SameSite=None' unless cookie.include?('SameSite=')
-        end.join('; ')
-        
-        puts "Set-Cookie: ==="
-        puts headers['Set-Cookie']
-      end
-    end
-
-    [status, headers, body]
-  end
-end
-
 module Mud
   class Application < Rails::Application
     config.action_controller.raise_on_missing_callback_actions = false if Rails.version >= "7.1.0"
@@ -62,7 +34,5 @@ module Mud
     config.action_dispatch.cookies_same_site_protection = lambda { |request|
       request.path == '/users/auth/apple' ? :none : :lax
     }
-    
-    config.middleware.insert_after ActionDispatch::Session::CookieStore, AppleSameSiteMiddleware
   end
 end
