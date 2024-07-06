@@ -15,7 +15,7 @@ class AppleSameSiteMiddleware
     status, headers, body = @app.call(env)
 
     if env['PATH_INFO'] == '/users/auth/apple/callback'
-      puts "path had /users/auth/apple, doing the thing"
+      puts "path had /users/auth/apple/callback, doing the thing"
       puts "headers:"
       puts headers
       set_cookie_header = headers['Set-Cookie']
