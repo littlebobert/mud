@@ -16,6 +16,8 @@ class AppleSameSiteMiddleware
 
     if env['PATH_INFO'] == '/users/auth/apple'
       puts "path had /users/auth/apple, doing the thing"
+      puts "headers:"
+      puts headers
       set_cookie_header = headers['Set-Cookie']
       if set_cookie_header
         puts "set_cookie_header was true, doing the thing"
