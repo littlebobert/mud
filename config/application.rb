@@ -14,7 +14,7 @@ class AppleSameSiteMiddleware
   def call(env)
     status, headers, body = @app.call(env)
 
-    if env['PATH_INFO'] == '/users/auth/apple'
+    if env['PATH_INFO'] == '/users/auth/apple/callback'
       puts "path had /users/auth/apple, doing the thing"
       puts "headers:"
       puts headers
