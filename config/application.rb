@@ -36,3 +36,28 @@ module Mud
     }
   end
 end
+
+class AppleSameSiteMiddleware
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    status, headers, body = @app.call(env)
+
+    if env['PATH_INFO'] == '/users/auth/apple'
+      puts "path had /users/auth/apple, doing the thing"
+      set_cookie_header = headers['Set-Cookie']
+      if set_cookie_header
+        puts "set_cookie_header was true, doing the thing"
+        headers['Set-Cookie'] = set_cookie_header.split(';').map do |cookie|
+          cookie << '; SameSite=None' unless cookie.include?('SameSite=')
+        end.join('; ')
+      end
+    end
+
+    [status, headers, body]
+  end
+end
+
+Rails.application.config.middleware.insert_before 0, AppleSameSiteMiddleware
